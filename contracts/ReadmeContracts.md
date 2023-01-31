@@ -1,14 +1,14 @@
-In this folder we have the contracts to be used in the NFT marketplace.
-Certain care must be taken when deploying the contracts:
+En esta carpeta tenemos los contratos a utilizar en el marketplace de NFT.
+Se deben tomar ciertos cuidados al momento de desplegar los contratos:
 
-Lazymintv2.sol:
-It has permissions based on AccessControl, the active roles are MINTER_ROLE and DEFAULT_ADMIN_ROLE.
-For the DEFAULT_ADMIN_ROLE the admin variable is used in which you can place the wallet that you want to be the administrator of the contract.
-Remember that this administrator has the access to assign and remove roles to other wallets, as well as to update the marketplace address.
+Lazymint.sol:
+Tiene los permisos basados en AccessControl, los roles activos son MINTER_ROLE y DEFAULT_ADMIN_ROLE.
+Para el DEFAULT_ADMIN_ROLE se usa la variable admin en la cual puedes colocar la wallet que deseas que quede como administrador del contrato.
+Recuerda que este administrador tiene el acceso para asignar y retirar roles a otras wallet, así como actualizar la dirección del marketplace.
 
-You can enable the pause function in the contract, and only the DEFAULT_ADMIN_ROLE will be able to place or remove the pause to the smartcontract.
+Puedes activar la función de pausa en el contrato, y solo el DEFAULT_ADMIN_ROLE podrá colocar o quitar la pausa al smartcontract.
 
 batchmint.sol:
-The batch sales creation contract has permissions based on AccessControl, the active role is DEFAULT_ADMIN_ROLE. For the DEFAULT_ADMIN_ROLE msg.sender is used.
-Remember that this administrator has the access to assign and remove roles to other wallets, as well as to update the marketplace address.
-
+El contrato de creacion de batch sales o batchauction tiene por default comentada la opción para crear lotes de subastas, si deseas activar la misma solo debes descomentarla.
+Tiene los permisos basados en AccessControl, el rol activos es DEFAULT_ADMIN_ROLE. Para el DEFAULT_ADMIN_ROLE se usa msg.sender.
+Recuerda que este administrador tiene el acceso para asignar y retirar roles a otras wallet, así como actualizar la dirección del marketplace.
