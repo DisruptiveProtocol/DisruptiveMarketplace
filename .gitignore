@@ -1,4 +1,5 @@
 .DS_Store
+contracts/._.DS_Store
 contracts/._AccessControl.sol
 contracts/._ERC1155URIStorage.sol
 contracts/._ERC2981.sol
