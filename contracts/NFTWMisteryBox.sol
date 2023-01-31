@@ -1,14 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.9;
 
-import "../AccessControl.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./ERC2981.sol";
 
 /// @title Lazymint witn Mistery Box Contract
 /// @notice This contract allows the mint of nft when the user decides and the creator doesn't need to pay the gas for the minting
 /// @author Mariano Salazar
-contract LazyNFT is AccessControl, ERC721URIStorage, ERC2981 {
+contract NFTWMistery is AccessControl, ERC721URIStorage, ERC2981, ReentrancyGuard {
 
     using Strings for uint256;
 
@@ -86,7 +87,7 @@ contract LazyNFT is AccessControl, ERC721URIStorage, ERC2981 {
         return admin;
     }
 
-    function redeem(address _redeem,uint256 _tokenid, string memory _uri) public returns (uint256) {
+    function redeem(address _redeem,uint256 _tokenid, string memory _uri) public nonReentrant returns (uint256) {
     require(!paused, "is paused");
     require(hasRole(MINTER_ROLE, msg.sender), "caller is not a minter");
     if (_tokenid == 0) {
@@ -110,7 +111,7 @@ contract LazyNFT is AccessControl, ERC721URIStorage, ERC2981 {
     }
     }
 
-    function openBox(address _redeem,uint256 _idBox, uint256 _tokenid, string memory _uri) public returns(uint256){
+    function openBox(address _redeem,uint256 _idBox, uint256 _tokenid, string memory _uri) public nonReentrant returns(uint256){
         require(!paused, "is paused");
         require(hasRole(MINTER_ROLE, msg.sender), "caller is not a minter");
         require(ownerOf(_idBox) == _redeem, "not your box");
@@ -124,7 +125,7 @@ contract LazyNFT is AccessControl, ERC721URIStorage, ERC2981 {
         return _tokenid;
     }
 
-    function burnMyNFT(address _burner, uint256 _tokenid) public returns(uint256) {
+    function burnMyNFT(address _burner, uint256 _tokenid) public nonReentrant returns(uint256) {
         require(!paused, "is paused");
         require(hasRole(MINTER_ROLE, msg.sender), "caller is not a minter");
         require(ownerOf(_tokenid) == _burner, "not your NFT");
@@ -167,7 +168,7 @@ contract LazyNFT is AccessControl, ERC721URIStorage, ERC2981 {
         royaties = true;
     } 
 
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC2981, ERC721) returns (bool) {
+    function supportsInterface(bytes4 interfaceId) public view virtual override(AccessControl,ERC2981, ERC721) returns (bool) {
         return interfaceId == type(IERC2981).interfaceId || super.supportsInterface(interfaceId);
     }
 

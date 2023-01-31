@@ -3,7 +3,7 @@ pragma solidity 0.8.9;
 
 import "./ILazymint.sol";
 import "./MarketContract.sol";
-import "./AccessControl.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 
 /// @title Smartcontract batch auction and sales in marketplace
 /// @notice This contract allows batchs of more than 2 sales or auctions to be executed in one transaction.
